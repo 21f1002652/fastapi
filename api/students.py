@@ -17,7 +17,7 @@ app.add_middleware(
 
 # Load CSV
 students_data = []
-csv_path = os.path.join(os.path.dirname(__file__), "..", "students.csv")
+csv_path = os.path.join(os.path.dirname(__file__), "..", "q-fastapi.csv")
 with open(csv_path, newline="") as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
