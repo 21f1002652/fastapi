@@ -1,21 +1,21 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum  # Converts FastAPI to serverless handler
+from mangum import Mangum
 import csv
 from typing import List
 import os
 
 app = FastAPI()
 
-# Enable CORS
+# Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_methods=["GET"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
-# Load CSV
+# Load CSV once
 students_data = []
 csv_path = os.path.join(os.path.dirname(__file__), "..", "q-fastapi.csv")
 with open(csv_path, newline="") as csvfile:
@@ -33,5 +33,5 @@ def get_students(class_: List[str] = Query(None, alias="class")):
         return {"students": filtered}
     return {"students": students_data}
 
-# Convert to serverless handler
+# Vercel serverless handler
 handler = Mangum(app)
